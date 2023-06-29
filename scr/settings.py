@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-x5w&y7-u%9ohk@q6k%1ttjd%ub%^5z!m3_07=t=4-v!z2du7%g
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+APPEND_SLASH = False
 
 # Application definition
 
@@ -54,8 +55,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'scr.urls'
-
-
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True

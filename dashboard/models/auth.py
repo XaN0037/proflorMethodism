@@ -12,7 +12,7 @@
 #                     is_active=True, **extra_fields):
 #         'Creates a User with the given username, email and password'
 #
-#         user = self.model(phone=email, is_active=is_active,
+#         user = self.models(phone=email, is_active=is_active,
 #                           is_staff=is_staff, **extra_fields)
 #
 #         if password:
