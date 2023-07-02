@@ -41,7 +41,6 @@ def patient_add(requests, params):
             comment=comment
         )
         patient.save()
-        print('shu joygach atogriiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
         return custom_response(True, data=patient_format_one(patient))
     else:
         return custom_response(False, error_params_unfilled('xato'))
