@@ -50,9 +50,9 @@ def retsep_change(requests, params):
     else:
         return custom_response(False, message=MESSAGE['UndefinedError'])
 
-# def patient_delete(requests, params):
-#     try:
-#         patient = Patient.objects.filter(pk=params['id']).first().delete()
-#         return custom_response(True, message=MESSAGE['UserSuccessDeleted'])
-#     except:
-#         return custom_response(True, message=MESSAGE['UserDeleted'])
+def retsep_delete(requests, params):
+    try:
+        retsep = Retsep.objects.filter(pk=params['id']).first().delete()
+        return custom_response(True, message=MESSAGE['UserSuccessDeleted'])
+    except:
+        return custom_response(False, message=MESSAGE['UserDeleted'])
