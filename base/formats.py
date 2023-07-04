@@ -1,6 +1,5 @@
 from collections import OrderedDict
 
-
 from dashboard.models import Files
 
 
@@ -107,17 +106,15 @@ def patient_format_one(data):
 
 
 def diagnoz_format_one(data):
-
-
     return OrderedDict([
-        ("Id", data.id),
+        ("patient", patient_format_one(data.patient)),
+        ("Id_diagnoz", data.id),
         ("diagnoz", data.diagnoz),
         ("recommendation", data.recommendation),
         ("comment", data.comment),
         ("date", data.date),
-        ("img_one", data.image_one.url),
-        ("img_two", data.image_two.url),
-        ("patient", data.patient.name),
+        ("img_one", "" if not data.image_one else data.image_one.url),
+        ("img_two", "" if not data.image_two else data.image_two.url)
 
     ])
 
@@ -144,6 +141,5 @@ def retsep_format_all(data):
     return OrderedDict([
         ("Id", data.id),
         ("name", data.name),
-
 
     ])

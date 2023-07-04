@@ -9,6 +9,7 @@ from .v1 import methods
 class Main(METHODISM):
     file = methods
     not_auth_methods = ['patient_view',"patient_add","patient_change","patient_delete",
-                        "retsep_view","retsep_add","retsep_change","retsep_delete"
+                        "retsep_view","retsep_add","retsep_change","retsep_delete",
+                        "diagnoz_view","diagnoz_add","diagnoz_change","diagnoz_delete"
 
                        ]
