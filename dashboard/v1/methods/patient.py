@@ -43,7 +43,7 @@ def patient_add(requests, params):
         patient.save()
         return custom_response(True, data=patient_format_one(patient))
     else:
-        return custom_response(False, message='xato')
+        return custom_response(False, message=MESSAGE['UndefinedError'])
 
 
 def patient_change(requests, params):
