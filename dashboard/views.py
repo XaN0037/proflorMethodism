@@ -9,6 +9,4 @@ from .v1 import methods
 
 class Main(METHODISM):
     file = methods
-    print('not auth lllllllllllllllllllllllllllllllllllllllllllllllllll')
     not_auth_methods = settings.METHODS
-    print('not auth twoo       lllllllllllllllllllllllllllllllllllllllllllllllllll')
