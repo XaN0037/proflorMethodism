@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from methodism import METHODISM
 from .v1 import methods
@@ -8,8 +9,6 @@ from .v1 import methods
 
 class Main(METHODISM):
     file = methods
-    not_auth_methods = ['patient_view',"patient_add","patient_change","patient_delete",
-                        "retsep_view","retsep_add","retsep_change","retsep_delete",
-                        "diagnoz_view","diagnoz_add","diagnoz_change","diagnoz_delete"
-
-                       ]
+    print('not auth lllllllllllllllllllllllllllllllllllllllllllllllllll')
+    not_auth_methods = settings.METHODS
+    print('not auth twoo       lllllllllllllllllllllllllllllllllllllllllllllllllll')

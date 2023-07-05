@@ -66,6 +66,7 @@ def patient_change(requests, params):
     else:
         return custom_response(False, message=MESSAGE['UndefinedError'])
 
+
 def patient_delete(requests, params):
     try:
         patient = Patient.objects.filter(pk=params['id']).first().delete()
