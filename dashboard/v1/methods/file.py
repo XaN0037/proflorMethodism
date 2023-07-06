@@ -25,70 +25,34 @@ def file_add(requests, params):
         return custom_response(False, message=error_params_unfilled(nott))
     try:
         patient = Patient.objects.filter(id=requests.POST.get('patient')).first()
-    except :
+    except:
         return custom_response(False, message=MESSAGE['UndefinedError'])
 
     try:
         file = Files(patient_id=requests.POST.get('patient'), file=requests.FILES.get('file'))
         file.save()
         return custom_response(True, data=file_format(file))
-    except :
+    except:
         return custom_response(False, message=MESSAGE['UndefinedError'])
 
-# patient = params['patient']
-#     # diagnoz = params['diagnoz']
-#     # recommendation = params['recommendation']
-#     # comment = params['comment']
-#     # date = params['date']
-#     # image_one = params.get('image_one', '')
-#     # image_two = params.get('image_two', '')
-#     #
-#     # if patient and diagnoz and recommendation and comment and date:
-#
-#     diagnoz = Diagnoz.objects.create(
-#         patient_id=patient,
-#         diagnoz=diagnoz,
-#         recommendation=recommendation,
-#         date=date,
-#         comment=comment,
-#         image_one=image_one,
-#         image_two=image_two
-#     )
-#
-#     return custom_response(True, data=diagnoz_format_one(diagnoz))
-# else:
-#     return custom_response(False, error_params_unfilled('xato'))
 
-#
-# #
-# #
-# def diagnoz_change(requests, params):
-#     try:
-#
-#         diagnoz = Diagnoz.objects.filter(pk=params['id']).first()
-#     except:
-#         return custom_response(False, message=MESSAGE["NotData"])
-#
-#     if diagnoz:
-#         diagnoz.patient_id = params.get('patient', diagnoz.patient_id)
-#         if not Patient.objects.filter(id=diagnoz.patient_id).first():
-#             return custom_response(False, message="patient yo")
-#         diagnoz.diagnoz = params.get('diagnoz', diagnoz.diagnoz)
-#         diagnoz.recommendation = params.get('recommendation', diagnoz.recommendation)
-#         diagnoz.comment = params.get('comment', diagnoz.comment)
-#         diagnoz.date = params.get('date', diagnoz.date)
-#         diagnoz.image_one = params.get('image_one', diagnoz.image_one)
-#         diagnoz.image_two = params.get('image_two', diagnoz.image_two)
-#
-#         diagnoz.save()
-#
-#         return custom_response(True, diagnoz_format_one(diagnoz))
-#     else:
-#         return custom_response(False, message=MESSAGE['UndefinedError'])
-#
-# def diagnoz_delete(requests, params):
-#     try:
-#         diagnoz = Diagnoz.objects.filter(pk=params['id']).first().delete()
-#         return custom_response(True, message="Diagnoz O'chirildi")
-#     except:
-#         return custom_response(False, message=MESSAGE['NotData'])
+def file_change(requests, params):
+    if not Files.objects.filter(id=requests.POST.get('id')).first():
+        return custom_response(False, message="Bu ID da malumot yo")
+    try:
+        file = Files.objects.filter(id=requests.POST.get('id')).first()
+        file.file = requests.FILES.get('file', file.file)
+        file.id = requests.POST.get('id', file.id)
+        file.save()
+
+        return custom_response(True, file_format(file))
+    except:
+        return custom_response(False, message=MESSAGE['UndefinedError'])
+
+
+def file_delete(requests, params):
+    try:
+        file = Files.objects.filter(pk=requests.POST.get('id')).first().delete()
+        return custom_response(True, message="FIle O'chirildi")
+    except:
+        return custom_response(False, message=MESSAGE['NotData'])

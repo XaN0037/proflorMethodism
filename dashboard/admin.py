@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from dashboard.models import Patient, Retsep, Diagnoz
+from dashboard.models import Patient, Retsep, Diagnoz, Files
 
 # Register your models here.
 
@@ -8,3 +8,4 @@ from dashboard.models import Patient, Retsep, Diagnoz
 admin.site.register(Patient)
 admin.site.register(Retsep)
 admin.site.register(Diagnoz)
+admin.site.register(Files)
