@@ -18,39 +18,45 @@ def file_view(requests, params):
             return custom_response(status=False, message=MESSAGE['NotData'])
 
 
-# #
-# def file_add(requests, params):
-#     nott = 'patient' if not 'patient' in params else 'diagnoz' if not 'diagnoz' in params else "recommendation" if not "recommendation" in params else "comment" if not 'comment' in params else "date" if not "date" in params else ''
 #
-#     if nott:
-#         return custom_response(False, message=error_params_unfilled(nott))
-#     if not Patient.objects.filter(id=params['patient']).first():
-#         return custom_response(False, message="patient yo")
+def file_add(requests, params):
+    nott = 'patient' if not 'patient' in requests.POST else 'file' if not 'info' in requests.POST else ""
+    if nott:
+        return custom_response(False, message=error_params_unfilled(nott))
+    if not Patient.objects.filter(id=requests.POST.get('patient')).first():
+        return custom_response(False, message="Bu ID da patient yo")
+    patient = requests.POST.get('patient')
+    try:
+        file = Files(patient_id=patient, file=requests.FILES.get('file'))
+        file.save()
+        return custom_response(True, data=file_format(file))
+    except:
+        return custom_response(False, message="File ni yuklab bo'lmadi")
+
+# patient = params['patient']
+#     # diagnoz = params['diagnoz']
+#     # recommendation = params['recommendation']
+#     # comment = params['comment']
+#     # date = params['date']
+#     # image_one = params.get('image_one', '')
+#     # image_two = params.get('image_two', '')
+#     #
+#     # if patient and diagnoz and recommendation and comment and date:
 #
-#     patient = params['patient']
-#     diagnoz = params['diagnoz']
-#     recommendation = params['recommendation']
-#     comment = params['comment']
-#     date = params['date']
-#     image_one = params.get('image_one', '')
-#     image_two = params.get('image_two', '')
+#     diagnoz = Diagnoz.objects.create(
+#         patient_id=patient,
+#         diagnoz=diagnoz,
+#         recommendation=recommendation,
+#         date=date,
+#         comment=comment,
+#         image_one=image_one,
+#         image_two=image_two
+#     )
 #
-#     if patient and diagnoz and recommendation and comment and date:
-#
-#         diagnoz = Diagnoz.objects.create(
-#             patient_id=patient,
-#             diagnoz=diagnoz,
-#             recommendation=recommendation,
-#             date=date,
-#             comment=comment,
-#             image_one=image_one,
-#             image_two=image_two
-#         )
-#
-#         return custom_response(True, data=diagnoz_format_one(diagnoz))
-#     else:
-#         return custom_response(False, error_params_unfilled('xato'))
-#
+#     return custom_response(True, data=diagnoz_format_one(diagnoz))
+# else:
+#     return custom_response(False, error_params_unfilled('xato'))
+
 #
 # #
 # #
