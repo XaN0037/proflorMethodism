@@ -29,8 +29,8 @@ class Diagnoz(models.Model):
     """Comment faqat bazaga yoziladi, qog'ozda chiqarilmaydi"""
     comment = models.TextField("Izox")
     date = models.DateField(auto_now=True)
-    image_one = models.ImageField('Birinchi rasm', null=True,blank=True)
-    image_two = models.ImageField('Ikkinchi rasm',null=True,blank=True)
+    image_one = models.ImageField('Birinchi rasm', null=True, blank=True, upload_to="image_diagnoz/")
+    image_two = models.ImageField('Ikkinchi rasm', null=True, blank=True, upload_to="image_diagnoz/")
 
     def __str__(self):
         return f"{self.patient}{self.diagnoz}"

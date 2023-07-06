@@ -20,18 +20,20 @@ def file_view(requests, params):
 
 #
 def file_add(requests, params):
-    nott = 'patient' if not 'patient' in requests.POST else 'file' if not 'info' in requests.POST else ""
+    nott = "file" if not "file" in requests.FILES else "patient" if not "patient" in requests.POST else ""
     if nott:
         return custom_response(False, message=error_params_unfilled(nott))
-    if not Patient.objects.filter(id=requests.POST.get('patient')).first():
-        return custom_response(False, message="Bu ID da patient yo")
-    patient = requests.POST.get('patient')
     try:
-        file = Files(patient_id=patient, file=requests.FILES.get('file'))
+        patient = Patient.objects.filter(id=requests.POST.get('patient')).first()
+    except :
+        return custom_response(False, message=MESSAGE['UndefinedError'])
+
+    try:
+        file = Files(patient_id=requests.POST.get('patient'), file=requests.FILES.get('file'))
         file.save()
         return custom_response(True, data=file_format(file))
-    except:
-        return custom_response(False, message="File ni yuklab bo'lmadi")
+    except :
+        return custom_response(False, message=MESSAGE['UndefinedError'])
 
 # patient = params['patient']
 #     # diagnoz = params['diagnoz']
