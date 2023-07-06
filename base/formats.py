@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from dashboard.models import Files
+from dashboard.models import Files, Diagnoz
 
 
 def contact_format(data, lan):
@@ -88,6 +88,10 @@ def file_format(data):
 
 def patient_format_one(data):
     try:
+        diagnoz  = [ diagnoz_format_all(x) for x in Diagnoz.objects.filter(patient_id=data.id)]
+    except:
+        diagnoz = None
+    try:
         files = [x.file.url for x in Files.objects.filter(patient_id=data.id)]
     except:
         files = None
@@ -101,6 +105,7 @@ def patient_format_one(data):
         ("phone", data.phone),
         ("comment", data.comment),
         ("files", files),
+        ("diagnoz", diagnoz),
 
     ])
 
