@@ -36,18 +36,18 @@ def file_add(requests, params):
         return custom_response(False, message=MESSAGE['UndefinedError'])
 
 
-# def file_change(requests, params):
-#     if not Files.objects.filter(id=requests.POST.get('id')).first():
-#         return custom_response(False, message="Bu ID da malumot yo")
-#     try:
-#         file = Files.objects.filter(id=requests.POST.get('id')).first()
-#         file.file = requests.FILES.get('file', file.file)
-#         file.id = requests.POST.get('id', file.id)
-#         file.save()
-#
-#         return custom_response(True, file_format(file))
-#     except:
-#         return custom_response(False, message=MESSAGE['UndefinedError'])
+def file_change(requests, params):
+    if not Files.objects.filter(id=requests.POST.get('id')).first():
+        return custom_response(False, message="Bu ID da malumot yo")
+    try:
+        file = Files.objects.filter(id=requests.POST.get('id')).first()
+        file.file = requests.FILES.get('file', file.file)
+        file.id = requests.POST.get('id', file.id)
+        file.save()
+
+        return custom_response(True, file_format(file))
+    except:
+        return custom_response(False, message=MESSAGE['UndefinedError'])
 
 
 def file_delete(requests, params):
