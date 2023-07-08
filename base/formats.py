@@ -112,7 +112,7 @@ def patient_format_one(data):
 
 def diagnoz_format_one(data):
     return OrderedDict([
-        ("patient", patient_format_one(data.patient)),
+        # ("patient", patient_format_one(data.patient)),
         ("Id_diagnoz", data.id),
         ("diagnoz", data.diagnoz),
         ("recommendation", data.recommendation),

@@ -18,7 +18,7 @@ def diagnoz_view(requests, params):
             return custom_response(status=False, message=MESSAGE['NotData'])
 
 
-#
+
 def diagnoz_add(requests, params):
     nott = 'patient' if not 'patient' in params else 'diagnoz' if not 'diagnoz' in params else "recommendation" if not "recommendation" in params else "comment" if not 'comment' in params else "date" if not "date" in params else ''
 
@@ -52,8 +52,7 @@ def diagnoz_add(requests, params):
         return custom_response(False, error_params_unfilled('xato'))
 
 
-#
-#
+
 def diagnoz_change(requests, params):
     try:
 

@@ -5,6 +5,7 @@ charset-normalizer==3.1.0
 colorama==0.4.6
 cors==1.0.1
 Django==4.2.2
+django-cleanup==8.0.0
 django-cors-headers==4.1.0
 django-rest-framework==0.1.0
 djangorestframework==3.14.0
