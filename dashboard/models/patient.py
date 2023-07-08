@@ -24,15 +24,11 @@ class Files(models.Model):
 
     def __str__(self):
         return f"{self.patient.name}"
-
+    """File ni o'zgartirganda fileni django projectdan o'chirib keyin qaytadan yangi fileni yozib qo'yadi"""
     def save(self, *args, **kwargs):
-        # Check if the instance already exists in the database
         if self.pk:
-            # Get the previous instance from the database
             previous_instance = Files.objects.get(pk=self.pk)
-            # Check if the file field has changed
             if self.file != previous_instance.file:
-                # Delete the previous file from the project
                 if os.path.isfile(previous_instance.file.path):
                     os.remove(previous_instance.file.path)
 
@@ -55,6 +51,12 @@ class Diagnoz(models.Model):
         return f"{self.patient}{self.diagnoz}"
 
 
+
+
+
+
+
+"""File modelida fileni o'chirganda django projectdan ham o'chiradi"""
 @receiver(models.signals.post_delete, sender=Files)
 def delete_file(sender, instance, **kwargs):
     if instance.file:
@@ -63,6 +65,8 @@ def delete_file(sender, instance, **kwargs):
             os.remove(file_path)
 
 
+
+"""Diagnoz modelida rasmlarni o'chirganda django projectdan ham o'chiradi"""
 @receiver(models.signals.pre_delete, sender=Diagnoz)
 def delete_diagnostic_files(sender, instance, **kwargs):
     if instance.image_one:
