@@ -26,10 +26,10 @@ def diagnoz_add(requests, params):
     if not Patient.objects.filter(id=requests.POST['patient']).first():
         return custom_response(False, message=MESSAGE['NOTPATIENT'])
     patient = requests.POST['patient']
-    diagnoz = requests.POST.get('diagnoz','')
-    recommendation = requests.POST.get('recommendation','')
-    comment = requests.POST.get('comment','')
-    date = requests.POST.get('date','')
+    diagnoz = requests.POST.get('diagnoz', '')
+    recommendation = requests.POST.get('recommendation', '')
+    comment = requests.POST.get('comment', '')
+    date = requests.POST.get('date', '')
     image_one = requests.FILES.get('image_one', '')
     image_two = requests.FILES.get('image_two', '')
 
