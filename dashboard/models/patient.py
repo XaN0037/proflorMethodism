@@ -48,7 +48,7 @@ class Diagnoz(models.Model):
     image_two = models.ImageField('Ikkinchi rasm', null=True, blank=True, upload_to="image_diagnoz/")
 
     def __str__(self):
-        return f"{self.patient}{self.diagnoz}"
+        return f"{self.patient} :::::: Diagnoz:   {self.diagnoz}"
 
 
 

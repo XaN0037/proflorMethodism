@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.shortcuts import render
 from methodism import METHODISM
-from .v1 import methods
+
+from dashboard import methods
 
 
 # Create your views here.

@@ -34,6 +34,7 @@ def retsep_add(requests, params):
     else:
         return custom_response(False, error_params_unfilled('xato'))
 
+
 def retsep_change(requests, params):
     try:
 
@@ -49,6 +50,7 @@ def retsep_change(requests, params):
         return custom_response(True, retsep_format_one(retsep))
     else:
         return custom_response(False, message=MESSAGE['UndefinedError'])
+
 
 def retsep_delete(requests, params):
     try:
