@@ -20,7 +20,7 @@ def diagnoz_view(requests, params):
 
 
 def diagnoz_add(requests, params):
-    nott = 'patient' if not 'patient' in requests.POST else 'diagnoz' if not 'diagnoz' in requests.POST else "recommendation" if not "recommendation" in requests.POST else "comment" if not 'comment' in requests.POST else "date" if not "date" in requests.POST else ''
+    nott = 'patient' if not 'patient' in requests.POST else 'diagnoz' if not 'diagnoz' in requests.POST else "date" if not 'date' in requests.POST else ''
     if nott:
         return custom_response(False, message=error_form_data_unfilled(nott))
     if not Patient.objects.filter(id=requests.POST['patient']).first():
@@ -33,7 +33,7 @@ def diagnoz_add(requests, params):
     image_one = requests.FILES.get('image_one', '')
     image_two = requests.FILES.get('image_two', '')
 
-    if patient and diagnoz and recommendation and date:
+    if patient and diagnoz and date:
 
         diagnoz = Diagnoz.objects.create(
             patient_id=patient,
@@ -47,7 +47,7 @@ def diagnoz_add(requests, params):
 
         return custom_response(True, data=diagnoz_format_one(diagnoz))
     else:
-        return custom_response(False, error_params_unfilled('xato'))
+        return custom_response(False, message=MESSAGE['UndefinedError'])
 
 
 def diagnoz_change(requests, params):

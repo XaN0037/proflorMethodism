@@ -19,18 +19,18 @@ def patient_view(requests, params):
 
 
 def patient_add(requests, params):
-    nott = 'first_name' if not 'first_name' in params else 'father_name' if not 'father_name' in params else "age" if not "age" in params else "phone" if not 'phone' in params else "comment" if not "comment" in params else 'name' if not 'name' in params else ""
+    nott = 'first_name' if not 'first_name' in params else 'name' if not 'name' in params else ""
 
     if nott:
         return custom_response(False, message=error_params_unfilled(nott))
     name = params['name']
     first_name = params['first_name']
-    father_name = params['father_name']
-    age = params['age']
-    phone = params['phone']
-    comment = params['comment']
+    father_name = params.get('father_name', '')
+    age = params.get('age', '')
+    phone = params.get('phone', '')
+    comment = params.get('comment', '')
 
-    if name and first_name and father_name and age and phone and comment:
+    if name and first_name:
 
         patient = Patient(
             name=name,
