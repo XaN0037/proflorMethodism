@@ -1,5 +1,4 @@
 from methodism import custom_response, MESSAGE, error_messages, error_params_unfilled
-from methodism.error_messages import error_form_data_unfilled
 
 from base.formats import diagnoz_format_one, diagnoz_format_all
 from dashboard.models import Diagnoz, Patient
@@ -22,7 +21,7 @@ def diagnoz_view(requests, params):
 def diagnoz_add(requests, params):
     nott = 'patient' if not 'patient' in requests.POST else 'diagnoz' if not 'diagnoz' in requests.POST else "date" if not 'date' in requests.POST else ''
     if nott:
-        return custom_response(False, message=error_form_data_unfilled(nott))
+        return custom_response(False, message=error_params_unfilled(nott))
     if not Patient.objects.filter(id=requests.POST['patient']).first():
         return custom_response(False, message=MESSAGE['NOTPATIENT'])
     patient = requests.POST['patient']
