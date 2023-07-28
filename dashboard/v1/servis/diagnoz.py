@@ -53,6 +53,8 @@ def diagnoz_change(requests, params):
     try:
 
         diagnoz = Diagnoz.objects.filter(pk=requests.POST['id']).first()
+        if diagnoz == None:
+            return custom_response(False, message=MESSAGE['NotData'])
     except:
         return custom_response(False, message=MESSAGE["NotData"])
 

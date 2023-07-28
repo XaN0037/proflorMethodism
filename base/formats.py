@@ -88,7 +88,7 @@ def file_format(data):
 
 def patient_format_one(data):
     try:
-        diagnoz  = [ diagnoz_format_all(x) for x in Diagnoz.objects.filter(patient_id=data.id)]
+        diagnoz = [diagnoz_format_all(x) for x in Diagnoz.objects.filter(patient_id=data.id)]
     except:
         diagnoz = None
     try:
@@ -135,17 +135,16 @@ def diagnoz_format_all(data):
     ])
 
 
-def retsep_format_one(data):
+def retsep_format_one(data,lan='ru'):
     return OrderedDict([
         ("Id", data.id),
-        ("name", data.name),
-        ("info", data.info),
+        ("name", eval(f"data.name_{lan}")),
+        ("info", eval(f"data.info_{lan}")),
     ])
 
 
-def retsep_format_all(data):
+def retsep_format_all(data, lan='ru'):
     return OrderedDict([
         ("Id", data.id),
-        ("name", data.name),
-
+        ("name", eval(f"data.name_{lan}"))
     ])

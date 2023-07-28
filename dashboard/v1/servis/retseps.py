@@ -5,30 +5,40 @@ from dashboard.models import Retsep
 
 
 def retsep_view(requests, params):
-    if not 'id' in params:
-        try:
-            return custom_response(status=True, data=[retsep_format_all(x) for x in Retsep.objects.all()])
-        except:
-            return custom_response(status=False, message=MESSAGE['NotData'])
-    if "id" in params:
+
+    if not 'lang' in requests.POST:
+        return custom_response(False, message="lang yuboring")
+    if not 'id' in requests.POST:
         try:
             return custom_response(status=True,
-                                   data=retsep_format_one(Retsep.objects.filter(id=params['id']).first()))
+                                   data=[retsep_format_all(x, requests.POST.get('lang')) for x in Retsep.objects.all()])
+        except:
+            return custom_response(status=False, message=MESSAGE['NotData'])
+    if "id" in requests.POST:
+        try:
+            return custom_response(status=True,
+                                   data=retsep_format_one(Retsep.objects.filter(id=requests.POST.get('id')).first(),
+                                                          requests.POST.get('lang')))
         except:
             return custom_response(status=False, message=MESSAGE['NotData'])
 
 
 def retsep_add(requests, params):
-    nott = 'name' if not 'name' in params else 'info' if not 'info' in params else ""
+    nott = 'name_uz' if not 'name_uz' in requests.POST else 'name_ru' if not 'name_ru' in requests.POST else ""
 
     if nott:
         return custom_response(False, message=error_params_unfilled(nott))
-    name = params['name']
-    info = params['info']
+    name_uz = requests.POST.get('name_uz')
+    name_ru = requests.POST.get('name_ru')
+    info_uz = requests.POST.get('info_uz', '')
+    info_ru = requests.POST.get('info_ru', '')
 
-    if name and info:
+    if name_uz and name_ru:
 
-        retsep = Retsep(name=name, info=info)
+        retsep = Retsep(name_uz=name_uz,
+                        name_ru=name_ru,
+                        info_uz=info_uz,
+                        info_ru=info_ru)
         retsep.save()
         return custom_response(True, data=retsep_format_one(retsep))
     else:
@@ -38,12 +48,16 @@ def retsep_add(requests, params):
 def retsep_change(requests, params):
     try:
 
-        retsep = Retsep.objects.filter(pk=params['id']).first()
+        retsep = Retsep.objects.filter(pk=requests.POST.get('id')).first()
+        if retsep == None:
+            return custom_response(False, message=MESSAGE["NotData"])
     except:
         return custom_response(False, message=MESSAGE["NotData"])
     if retsep:
-        retsep.name = params.get('name', retsep.name)
-        retsep.info = params.get('info', retsep.info)
+        retsep.name_uz = requests.POST.get('name_uz', retsep.name_uz)
+        retsep.name_ru = requests.POST.get('name_ru', retsep.name_ru)
+        retsep.info_uz = requests.POST.get('info_uz', retsep.info_uz)
+        retsep.info_ru = requests.POST.get('info_ru', retsep.info_ru)
 
         retsep.save()
 
@@ -54,7 +68,7 @@ def retsep_change(requests, params):
 
 def retsep_delete(requests, params):
     try:
-        retsep = Retsep.objects.filter(pk=params['id']).first().delete()
+        retsep = Retsep.objects.filter(pk=requests.POST.get('id')).first().delete()
         return custom_response(True, message=MESSAGE['UserSuccessDeleted'])
     except:
         return custom_response(False, message=MESSAGE['UserDeleted'])
