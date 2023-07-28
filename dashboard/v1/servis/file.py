@@ -5,15 +5,15 @@ from dashboard.models import Files, Patient
 
 
 def file_view(requests, params):
-    if not 'id' in params:
+    if not 'id' in requests.POST:
         try:
             return custom_response(status=True, data=[file_format(x) for x in Files.objects.all()])
         except:
             return custom_response(status=False, message=MESSAGE['NotData'])
-    if "id" in params:
+    if "id" in requests.POST:
         try:
             return custom_response(status=True,
-                                   data=file_format(Files.objects.filter(id=params['id']).first()))
+                                   data=file_format(Files.objects.filter(id=requests.POST.get('id')).first()))
         except:
             return custom_response(status=False, message=MESSAGE['NotData'])
 

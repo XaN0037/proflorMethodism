@@ -5,15 +5,15 @@ from dashboard.models import Diagnoz, Patient
 
 
 def diagnoz_view(requests, params):
-    if not 'id' in params:
+    if not 'id' in requests.POST:
         try:
             return custom_response(status=True, data=[diagnoz_format_all(x) for x in Diagnoz.objects.all()])
         except:
             return custom_response(status=False, message=MESSAGE['NotData'])
-    if "id" in params:
+    if "id" in requests.POST:
         try:
             return custom_response(status=True,
-                                   data=diagnoz_format_one(Diagnoz.objects.filter(id=params['id']).first()))
+                                   data=diagnoz_format_one(Diagnoz.objects.filter(id=requests.POST['id']).first()))
         except:
             return custom_response(status=False, message=MESSAGE['NotData'])
 
