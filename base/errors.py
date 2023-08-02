@@ -1,18 +1,20 @@
 
 
 
-MESSAGE = {
+INFORMATION = {
 "NotData": {
         'uz': "Ma'lumot topilmadi",
         'en': "Patient not found",
         "ru": "Информация не найдена"
     },
 
-"NotData": {
-        'uz': "Ma'lumot topilmadi",
-        'en': "No information found",
-        "ru": "Информация не найдена"
+"ErrorBig": {
+        'uz': "Noma'lum xatolik",
+        'en': "Unknown error",
+        "ru": "Неизвестная ошибка"
     },
+
+
 "NotDataTrID": {
         "uz": "Ushbu tr_id bo'yicha ma'lumot topilmadi",
         "ru": "Информация для этого tr_id не найдена",
@@ -112,5 +114,29 @@ MESSAGE = {
     "ru": "Таких karoche не найдено",
     "en": "No such kasalda karoche was found",
     },
+"NewDelete": {
+        'uz': "Yangilik  o'chirildi",
+        'en': "The news has been deleted",
+        "ru": "Новость удалена"
+    },
+    "NewDeleteError": {
+        'uz': "Yangilik  o'chirishda muammo mavjud",
+        'en': "There is a problem deleting news",
+        "ru": "Не удалось удалить новость"
+    },
 
+"ErrorLang": {
+        'uz': "Kerakli tilni yuboring",
+        'en': "Submit the required language",
+        "ru": "Введите требуемый язык"
+    },
 }
+
+
+
+def error_unfilled(require):
+    return {
+        "uz": f"< {require} > bo'lishi shart",
+        "ru": f"Должен быть < {require} >",
+        "en": f"< {require} > must be filled"
+    }

@@ -21,49 +21,47 @@ def contact_format(data, lan):
     ])
 
 
-def doctor_format(data, lan="uz"):
+def doctor_format_all(data, lan="uz"):
     return OrderedDict([
+
         ("Id", data.id),
         ("name", eval(f"data.name_{lan}")),
         ("first_name", eval(f"data.first_name_{lan}")),
         ("middle_name", eval(f"data.middle_name_{lan}")),
         ("specialty", eval(f"data.specialty_{lan}")),
         ("about_doctor", eval(f"data.about_doctor_{lan}")),
-        # ("motto", eval(f"data.motto_{lan}")),
         ("phone", data.phone),
-
         ("email", data.email),
-
         ("instagramm", data.instagramm),
         ("telegram", data.telegram),
         ("facebook", data.facebook),
         ("twitter", data.twitter),
         ("odnoklassniki", data.odnoklassniki),
-        ("img", data.img.url),
+        ("image", "" if not data.image else data.image.url),
 
     ])
 
 
-def new_format(data, lan):
-    return OrderedDict([
-        ("Id", data.id),
-        ("img", data.img.url),
-        ("title", eval(f"data.title_{lan}")),
-        ("short_desc", eval(f"data.short_desc_{lan}")),
-
-    ])
-
-
-def new_format_all(data, lan):
-    return OrderedDict([
-        ("Id", data.id),
-        ("img", data.img.url),
-        ("title", eval(f"data.title_{lan}")),
-        ("short_desc", eval(f"data.short_desc_{lan}")),
-        ("desc", eval(f"data.desc_{lan}")),
-        ("date", data.date)
-
-    ])
+# def new_format(data, lan):
+#     return OrderedDict([
+#         ("Id", data.id),
+#         ("img", data.img.url),
+#         ("title", eval(f"data.title_{lan}")),
+#         ("short_desc", eval(f"data.short_desc_{lan}")),
+#
+#     ])
+#
+#
+# def new_format_all(data, lan):
+#     return OrderedDict([
+#         ("Id", data.id),
+#         ("img", data.img.url),
+#         ("title", eval(f"data.title_{lan}")),
+#         ("short_desc", eval(f"data.short_desc_{lan}")),
+#         ("desc", eval(f"data.desc_{lan}")),
+#         ("date", data.date)
+#
+#     ])
 
 
 def patient_format_all(data):
@@ -157,7 +155,18 @@ def new_format_one(data,lan='uz'):
         ("Id", data.id),
         ("title", eval(f"data.title_{lan}")),
         ("short_desc", eval(f"data.short_desc_{lan}")),
-        ("desc_uz", eval(f"data.desc_{lan}")),
+        ("desc", eval(f"data.desc_{lan}")),
         ("date", data.date),
-        ("image", data.image.url),
+        ("image",  "" if not data.image else data.image.url),
+    ])
+
+
+def new_format_all(data, lan='uz'):
+    return OrderedDict([
+        ("Id", data.id),
+        ("image", "" if not data.image else data.image.url),
+        ("title", eval(f"data.title_{lan}")),
+        ("short_desc", eval(f"data.short_desc_{lan}")),
+        ("date", data.date)
+
     ])
