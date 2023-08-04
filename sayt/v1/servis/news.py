@@ -5,17 +5,18 @@ from sayt.models import New
 
 
 def new_add(requests, params):
-    nott = "title_uz" if not "title_uz" in requests.POST else "title_ru" if not "title_ru" in requests.POST else "short_desc_uz" if not "short_desc_uz" in requests.POST else "short_desc_ru" if not "short_desc_ru" in requests.POST else "desc_uz" if not "desc_uz" in requests.POST else "desc_ru" if not "desc_ru" in requests.POST else "image" if not "image" in requests.FILES else ""
+    print(params.get("title_uz"),'asdddddddddddddddddddddddddddd')
+    nott = "title_uz" if not "title_uz" in params else "title_ru" if not "title_ru" in params else "short_desc_uz" if not "short_desc_uz" in params else "short_desc_ru" if not "short_desc_ru" in params else "desc_uz" if not "desc_uz" in params else "desc_ru" if not "desc_ru" in params else "image" if not "image" in params else ""
     if nott:
         return custom_response(False, message=error_params_unfilled(nott))
     try:
-        image = requests.FILES.get('image')
-        title_uz = requests.POST.get('title_uz')
-        title_ru = requests.POST.get('title_ru')
-        short_desc_uz = requests.POST.get('short_desc_uz')
-        short_desc_ru = requests.POST.get('short_desc_ru')
-        desc_uz = requests.POST.get('desc_uz')
-        desc_ru = requests.POST.get('desc_ru')
+        image = params.get('image')
+        title_uz = params.get('title_uz')
+        title_ru = params.get('title_ru')
+        short_desc_uz = params.get('short_desc_uz')
+        short_desc_ru = params.get('short_desc_ru')
+        desc_uz = params.get('desc_uz')
+        desc_ru = params.get('desc_ru')
     except:
         return custom_response(False, message=INFORMATION['ErrorBig'])
     new_instance = New(
@@ -28,7 +29,7 @@ def new_add(requests, params):
         desc_ru=desc_ru,
     )
     new_instance.save()
-    return custom_response(True, data=new_format_one(new_instance, lan=requests.POST.get('lan', 'uz')))
+    return custom_response(True, data=new_format_one(new_instance, lan=params.get('lan', 'uz')))
 
 
 def new_view(requests, params):
