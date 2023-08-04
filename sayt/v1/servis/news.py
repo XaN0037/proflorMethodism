@@ -1,7 +1,27 @@
 from methodism import custom_response, error_params_unfilled, MESSAGE
+
 from base.errors import INFORMATION
 from base.formats import new_format_one, new_format_all
 from sayt.models import New
+
+
+
+
+
+def salom(requests,params):
+    print('sadasdaddsadddddddddddddddd')
+    return custom_response({'asdasadsa'})
+
+def xayr(requests,params):
+    return custom_response(True,message='Json ishladi')
+
+
+
+
+
+
+
+
 
 
 def new_add(requests, params):
