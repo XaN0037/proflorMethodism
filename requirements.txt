@@ -14,7 +14,7 @@ future==0.18.3
 gevent==22.10.2
 greenlet==2.0.2
 idna==3.4
-methodism==0.1.5
+methodism==0.1.8
 Pillow==9.5.0
 psycopg2==2.9.6
 pycparser==2.21

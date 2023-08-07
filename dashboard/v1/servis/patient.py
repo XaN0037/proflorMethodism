@@ -7,13 +7,13 @@ from dashboard.models import Patient
 def patient_view(requests, params):
     if not 'id' in requests.POST:
         try:
-            return {'data': custom_response(status=True, data=[patient_format_all(x) for x in Patient.objects.all()])}
+            return custom_response(status=True, data=[patient_format_all(x) for x in Patient.objects.all()])
         except:
             return custom_response(status=False, message=MESSAGE['NotData'])
     if "id" in requests.POST:
         try:
-            return {'data': custom_response(status=True,
-                                            data=patient_format_one(Patient.objects.filter(id=requests.POST['id']).first()))}
+            return custom_response(status=True,
+                                   data=patient_format_one(Patient.objects.filter(id=requests.POST['id']).first()))
         except:
             return custom_response(status=False, message=MESSAGE['NotData'])
 

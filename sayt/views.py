@@ -14,3 +14,5 @@ from sayt import methods
 class Main(METHODISM):
     file = methods
     not_auth_methods = settings.METHODS
+
+    # HELPS['METHODS']

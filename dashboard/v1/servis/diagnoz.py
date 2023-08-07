@@ -19,9 +19,12 @@ def diagnoz_view(requests, params):
 
 
 def diagnoz_add(requests, params):
-    nott = 'patient' if not 'patient' in requests.POST else 'diagnoz' if not 'diagnoz' in requests.POST else "date" if not 'date' in requests.POST else ''
-    if nott:
-        return custom_response(False, message=error_params_unfilled(nott))
+    # nott = 'patient' if not 'patient' in requests.POST else 'diagnoz' if not 'diagnoz' in requests.POST else "date" \
+    #     if not 'date' in requests.POST else ''
+    for i in ["patient", "diagnoz", 'date']:
+        if i not in requests.POST:
+            return custom_response(False, message=error_params_unfilled(i))
+
     if not Patient.objects.filter(id=requests.POST['patient']).first():
         return custom_response(False, message=MESSAGE['NOTPATIENT'])
     patient = requests.POST['patient']

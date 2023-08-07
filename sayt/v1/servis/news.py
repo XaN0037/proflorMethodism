@@ -5,27 +5,15 @@ from base.formats import new_format_one, new_format_all
 from sayt.models import New
 
 
-
-
-
-def salom(requests,params):
-    print('sadasdaddsadddddddddddddddd')
+def salom(requests, params):
     return custom_response({'asdasadsa'})
 
-def xayr(requests,params):
-    return custom_response(True,message='Json ishladi')
 
-
-
-
-
-
-
-
+def xayr(requests, params):
+    return custom_response(True, message='Json ishladi')
 
 
 def new_add(requests, params):
-    print(params.get("title_uz"),'asdddddddddddddddddddddddddddd')
     nott = "title_uz" if not "title_uz" in params else "title_ru" if not "title_ru" in params else "short_desc_uz" if not "short_desc_uz" in params else "short_desc_ru" if not "short_desc_ru" in params else "desc_uz" if not "desc_uz" in params else "desc_ru" if not "desc_ru" in params else "image" if not "image" in params else ""
     if nott:
         return custom_response(False, message=error_params_unfilled(nott))
