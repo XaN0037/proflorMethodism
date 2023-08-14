@@ -5,7 +5,6 @@ from dashboard.models import Retsep
 
 
 def retsep_view(requests, params):
-
     if not 'lang' in requests.POST:
         return custom_response(False, message="lang yuboring")
     if not 'id' in requests.POST:
