@@ -42,28 +42,6 @@ def doctor_format_all(data, lan="uz"):
     ])
 
 
-# def new_format(data, lan):
-#     return OrderedDict([
-#         ("Id", data.id),
-#         ("img", data.img.url),
-#         ("title", eval(f"data.title_{lan}")),
-#         ("short_desc", eval(f"data.short_desc_{lan}")),
-#
-#     ])
-#
-#
-# def new_format_all(data, lan):
-#     return OrderedDict([
-#         ("Id", data.id),
-#         ("img", data.img.url),
-#         ("title", eval(f"data.title_{lan}")),
-#         ("short_desc", eval(f"data.short_desc_{lan}")),
-#         ("desc", eval(f"data.desc_{lan}")),
-#         ("date", data.date)
-#
-#     ])
-
-
 def patient_format_all(data):
     return OrderedDict([
         ("Id", data.id),
@@ -133,7 +111,7 @@ def diagnoz_format_all(data):
     ])
 
 
-def retsep_format_one(data,lan='ru'):
+def retsep_format_one(data, lan='ru'):
     return OrderedDict([
         ("Id", data.id),
         ("name", eval(f"data.name_{lan}")),
@@ -149,16 +127,14 @@ def retsep_format_all(data, lan='ru'):
     ])
 
 
-
-
-def new_format_one(data,lan='uz'):
+def new_format_one(data, lan='uz'):
     return OrderedDict([
         ("Id", data.id),
         ("title", eval(f"data.title_{lan}")),
         ("short_desc", eval(f"data.short_desc_{lan}")),
         ("desc", eval(f"data.desc_{lan}")),
         ("date", data.date),
-        ("image",  "" if not data.image else data.image.url),
+        ("image", "" if not data.image else data.image.url),
     ])
 
 
@@ -169,5 +145,28 @@ def new_format_all(data, lan='uz'):
         ("title", eval(f"data.title_{lan}")),
         ("short_desc", eval(f"data.short_desc_{lan}")),
         ("date", data.date)
+
+    ])
+
+
+
+
+def contact_format_all(data):
+    return OrderedDict([
+        ("Id", data.id),
+        ("phone_mobile", data.phone_mobile),
+        ("phone_clinica", data.phone_clinica),
+        ("email", data.email),
+        ("adress_uz", data.adress_uz),
+        ("adress_ru", data.adress_ru),
+        ("adress_en", data.adress_en),
+        ("instagramm", data.instagramm),
+        ("telegram", data.telegram),
+        ("facebook", data.facebook),
+        ("twitter", data.twitter),
+        ("odnoklassniki", data.odnoklassniki),
+        ("youtube", data.youtube),
+        ("locatsiya", data.locatsiya),
+
 
     ])

@@ -1,5 +1,6 @@
 from methodism import custom_response, MESSAGE, error_messages, error_params_unfilled
 
+from base.errors import INFORMATION
 from base.formats import diagnoz_format_one, diagnoz_format_all
 from dashboard.models import Diagnoz, Patient
 
@@ -9,24 +10,22 @@ def diagnoz_view(requests, params):
         try:
             return custom_response(status=True, data=[diagnoz_format_all(x) for x in Diagnoz.objects.all()])
         except:
-            return custom_response(status=False, message=MESSAGE['NotData'])
+            return custom_response(status=False, message=INFORMATION['NotDataTrID'])
     if "id" in requests.POST:
         try:
             return custom_response(status=True,
                                    data=diagnoz_format_one(Diagnoz.objects.filter(id=requests.POST['id']).first()))
         except:
-            return custom_response(status=False, message=MESSAGE['NotData'])
+            return custom_response(status=False, message=INFORMATION['NotData'])
 
 
 def diagnoz_add(requests, params):
-    # nott = 'patient' if not 'patient' in requests.POST else 'diagnoz' if not 'diagnoz' in requests.POST else "date" \
-    #     if not 'date' in requests.POST else ''
     for i in ["patient", "diagnoz", 'date']:
         if i not in requests.POST:
             return custom_response(False, message=error_params_unfilled(i))
 
     if not Patient.objects.filter(id=requests.POST['patient']).first():
-        return custom_response(False, message=MESSAGE['NOTPATIENT'])
+        return custom_response(False, message=INFORMATION['NotDataTrID'])
     patient = requests.POST['patient']
     diagnoz = requests.POST.get('diagnoz', '')
     recommendation = requests.POST.get('recommendation', '')
@@ -57,9 +56,9 @@ def diagnoz_change(requests, params):
 
         diagnoz = Diagnoz.objects.filter(pk=requests.POST['id']).first()
         if diagnoz == None:
-            return custom_response(False, message=MESSAGE['NotData'])
+            return custom_response(False, message=INFORMATION['NotDataTrID'])
     except:
-        return custom_response(False, message=MESSAGE["NotData"])
+        return custom_response(False, message=INFORMATION['NotDataTrID'])
 
     if diagnoz:
         diagnoz.diagnoz = requests.POST.get('diagnoz', diagnoz.diagnoz)
@@ -80,4 +79,4 @@ def diagnoz_delete(requests, params):
         diagnoz = Diagnoz.objects.filter(pk=requests.POST['id']).first().delete()
         return custom_response(True, message="Diagnoz O'chirildi")
     except:
-        return custom_response(False, message=MESSAGE['NotData'])
+        return custom_response(False, message=INFORMATION['NotDataTrID'])

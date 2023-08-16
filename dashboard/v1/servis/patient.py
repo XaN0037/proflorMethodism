@@ -1,5 +1,6 @@
 from methodism import custom_response, MESSAGE, error_messages, error_params_unfilled
 
+from base.errors import INFORMATION
 from base.formats import patient_format_one, patient_format_all
 from dashboard.models import Patient
 
@@ -9,7 +10,7 @@ def patient_view(requests, params):
         try:
             return custom_response(status=True, data=[patient_format_all(x) for x in Patient.objects.all()])
         except:
-            return custom_response(status=False, message=MESSAGE['NotData'])
+            return custom_response(status=False, message=INFORMATION['NotDataTrID'])
     if "id" in requests.POST:
         try:
             return custom_response(status=True,
@@ -51,7 +52,7 @@ def patient_change(requests, params):
 
         patient = Patient.objects.filter(pk=requests.POST['id']).first()
         if patient == None:
-            return custom_response(False, message=MESSAGE["NotData"])
+            return custom_response(False, message=INFORMATION['NotDataTrID'])
     except:
         return custom_response(False, message=MESSAGE["NotData"])
     if patient:
@@ -74,4 +75,4 @@ def patient_delete(requests, params):
         patient = Patient.objects.filter(pk=requests.POST['id']).first().delete()
         return custom_response(True, message=MESSAGE['UserSuccessDeleted'])
     except:
-        return custom_response(False, message=MESSAGE['UserDeleted'])
+        return custom_response(False, message=INFORMATION['NotDataTrID'])

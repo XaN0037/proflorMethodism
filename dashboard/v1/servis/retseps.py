@@ -1,5 +1,6 @@
 from methodism import custom_response, MESSAGE, error_messages, error_params_unfilled
 
+from base.errors import INFORMATION
 from base.formats import retsep_format_all, retsep_format_one
 from dashboard.models import Retsep
 
@@ -12,7 +13,7 @@ def retsep_view(requests, params):
             return custom_response(status=True,
                                    data=[retsep_format_all(x, requests.POST.get('lang')) for x in Retsep.objects.all()])
         except:
-            return custom_response(status=False, message=MESSAGE['NotData'])
+            return custom_response(status=False, message=INFORMATION['NotDataTrID'])
     if "id" in requests.POST:
         try:
             return custom_response(status=True,
@@ -49,7 +50,7 @@ def retsep_change(requests, params):
 
         retsep = Retsep.objects.filter(pk=requests.POST.get('id')).first()
         if retsep == None:
-            return custom_response(False, message=MESSAGE["NotData"])
+            return custom_response(False, message=INFORMATION['NotDataTrID'])
     except:
         return custom_response(False, message=MESSAGE["NotData"])
     if retsep:
@@ -70,4 +71,4 @@ def retsep_delete(requests, params):
         retsep = Retsep.objects.filter(pk=requests.POST.get('id')).first().delete()
         return custom_response(True, message=MESSAGE['UserSuccessDeleted'])
     except:
-        return custom_response(False, message=MESSAGE['UserDeleted'])
+        return custom_response(False, message=INFORMATION['NotDataTrID'])
