@@ -71,32 +71,33 @@ def doctor_add(requests, params):
     if not all(field in requests.FILES or field in requests.POST for field in required_fields):
         return custom_response(False, message=error_unfilled(", ".join(required_fields)))
 
+    doctor_data = {
+        'name_uz': requests.POST.get('name_uz', ''),
+        'first_name_uz': requests.POST.get('first_name_uz', ''),
+        'middle_name_uz': requests.POST.get('middle_name_uz', ''),
+        'name_ru': requests.POST.get('name_ru', ''),
+        'first_name_ru': requests.POST.get('first_name_ru', ''),
+        'middle_name_ru': requests.POST.get('middle_name_ru', ''),
+        'name_en': requests.POST.get('name_en', ''),
+        'first_name_en': requests.POST.get('first_name_en', ''),
+        'middle_name_en': requests.POST.get('middle_name_en', ''),
+        'specialty_uz': requests.POST.get('specialty_uz', ''),
+        'specialty_ru': requests.POST.get('specialty_ru', ''),
+        'specialty_en': requests.POST.get('specialty_en', ''),
+        'about_doctor_uz': requests.POST.get('about_doctor_uz', ''),
+        'about_doctor_ru': requests.POST.get('about_doctor_ru', ''),
+        'about_doctor_en': requests.POST.get('about_doctor_en', ''),
+        'phone': requests.POST.get('phone', ''),
+        'email': requests.POST.get('email', ''),
+        'instagramm': requests.POST.get('instagramm', ''),
+        'telegram': requests.POST.get('telegram', ''),
+        'facebook': requests.POST.get('facebook', ''),
+        'twitter': requests.POST.get('twitter', ''),
+        'odnoklassniki': requests.POST.get('odnoklassniki', ''),
+        'image': requests.FILES.get('image'),
+    }
     try:
-        doctor_data = {
-            'name_uz': requests.POST.get('name_uz', ''),
-            'first_name_en': requests.POST.get('first_name_en', ''),
-            'middle_name_uz': requests.POST.get('middle_name_uz', ''),
-            'name_ru': requests.POST.get('name_ru', ''),
-            'first_name_ru': requests.POST.get('first_name_ru', ''),
-            'middle_name_ru': requests.POST.get('middle_name_ru', ''),
-            'name_en': requests.POST.get('name_en', ''),
-            'first_name_en': requests.POST.get('first_name_en', ''),
-            'middle_name_en': requests.POST.get('middle_name_en', ''),
-            'specialty_uz': requests.POST.get('specialty_uz', ''),
-            'specialty_ru': requests.POST.get('specialty_ru', ''),
-            'specialty_en': requests.POST.get('specialty_en', ''),
-            'about_doctor_uz': requests.POST.get('about_doctor_uz', ''),
-            'about_doctor_ru': requests.POST.get('about_doctor_ru', ''),
-            'about_doctor_en': requests.POST.get('about_doctor_en', ''),
-            'phone': requests.POST.get('phone', ''),
-            'email': requests.POST.get('email', ''),
-            'instagramm': requests.POST.get('instagramm', ''),
-            'telegram': requests.POST.get('telegram', ''),
-            'facebook': requests.POST.get('facebook', ''),
-            'twitter': requests.POST.get('twitter', ''),
-            'odnoklassniki': requests.POST.get('odnoklassniki', ''),
-            'image': requests.FILES.get('image'),
-        }
+        pass
     except:
         return custom_response(False, message=INFORMATION['ErrorBig'])
 
