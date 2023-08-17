@@ -1,6 +1,6 @@
 from methodism import custom_response as cr
 
-from sayt.v1.servis.news import new_add,new_change,new_view,new_delete,salom,xayr
+from sayt.v1.servis.news import new_add,new_change,new_view,new_delete
 from sayt.v1.servis.doctors import doctor_add,doctor_view,doctor_change,doctor_delete
 
 
