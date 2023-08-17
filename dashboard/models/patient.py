@@ -48,8 +48,23 @@ class Diagnoz(models.Model):
     image_one = models.ImageField('Birinchi rasm', null=True, blank=True, upload_to="image_diagnoz/")
     image_two = models.ImageField('Ikkinchi rasm', null=True, blank=True, upload_to="image_diagnoz/")
 
+    def save(self, *args, **kwargs):
+        if self.pk:
+            previous_instance = Diagnoz.objects.get(pk=self.pk)
+            if self.image_one != previous_instance.image_one:
+                if os.path.isfile(previous_instance.image_one.path):
+                    os.remove(previous_instance.image_one.path)
+            if self.image_two != previous_instance.image_two:
+                if os.path.isfile(previous_instance.image_two.path):
+                    os.remove(previous_instance.image_two.path)
+
+        # Save the new file
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.patient} :::::: Diagnoz:   {self.diagnoz}"
+
+
 
 
 """File modelida fileni o'chirganda django projectdan ham o'chiradi"""

@@ -5,29 +5,43 @@ from base.formats import retsep_format_all, retsep_format_one
 from dashboard.models import Retsep
 
 
+# def retsep_view(requests, params):
+#
+#     if not 'id' in requests.POST:
+#         try:
+#             return custom_response(status=True,
+#                                    data=[retsep_format_all(x, requests.POST.get('lang','uz')) for x in Retsep.objects.all()])
+#         except:
+#             return custom_response(status=False, message=INFORMATION['NotDataTrID'])
+#     if "id" in requests.POST:
+#         try:
+#             return custom_response(status=True,
+#                                    data=retsep_format_one(Retsep.objects.filter(id=requests.POST.get('id')).first(),
+#                                                           requests.POST.get('lang','uz')))
+#         except:
+#             return custom_response(status=False, message=MESSAGE['NotData'])
+
 def retsep_view(requests, params):
-    if not 'lang' in requests.POST:
-        return custom_response(False, message="lang yuboring")
-    if not 'id' in requests.POST:
-        try:
-            return custom_response(status=True,
-                                   data=[retsep_format_all(x, requests.POST.get('lang')) for x in Retsep.objects.all()])
-        except:
-            return custom_response(status=False, message=INFORMATION['NotDataTrID'])
-    if "id" in requests.POST:
-        try:
-            return custom_response(status=True,
-                                   data=retsep_format_one(Retsep.objects.filter(id=requests.POST.get('id')).first(),
-                                                          requests.POST.get('lang')))
-        except:
-            return custom_response(status=False, message=MESSAGE['NotData'])
+    post_data = requests.POST
+    lang = post_data.get('lang', 'uz')
+
+    if 'id' not in post_data:
+        recipes = [retsep_format_all(x, lang) for x in Retsep.objects.all()]
+        return custom_response(status=True, data=recipes) if recipes else custom_response(status=False,
+                                                                                          message=INFORMATION[
+                                                                                              'NotDataTrID'])
+
+    recipe_id = post_data.get('id')
+    recipe = Retsep.objects.filter(id=recipe_id).first()
+    if recipe:
+        return custom_response(status=True, data=retsep_format_one(recipe, lang))
+    else:
+        return custom_response(status=False, message=MESSAGE['NotData'])
 
 
 def retsep_add(requests, params):
-    nott = 'name_uz' if not 'name_uz' in requests.POST else 'name_ru' if not 'name_ru' in requests.POST else ""
-
-    if nott:
-        return custom_response(False, message=error_params_unfilled(nott))
+    if not 'name_uz' or 'name ru' is requests.POST:
+        return custom_response(False, message='name_uz va  name_ru bo\'lishi majburiy')
     name_uz = requests.POST.get('name_uz')
     name_ru = requests.POST.get('name_ru')
     info_uz = requests.POST.get('info_uz', '')

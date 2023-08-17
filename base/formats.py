@@ -111,7 +111,7 @@ def diagnoz_format_all(data):
     ])
 
 
-def retsep_format_one(data, lan='ru'):
+def retsep_format_one(data, lan='uz'):
     return OrderedDict([
         ("Id", data.id),
         ("name", eval(f"data.name_{lan}")),

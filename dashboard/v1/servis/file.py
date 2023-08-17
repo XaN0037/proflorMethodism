@@ -20,36 +20,37 @@ def file_view(requests, params):
 
 
 def file_add(requests, params):
-    # nott = "file" if not "file" in requests.FILES else "patient" if not "patient" in requests.POST else ""
-    # if nott:
-    #     return custom_response(False, message=error_params_unfilled(nott))
+    print(requests.POST, requests.FILES)
 
-    for i in ["file", "patient"]:
-        if i not in requests.POST:
-            return custom_response(False, message=error_params_unfilled(i))
+    missing_param = next(
+        (param for param in ["file", "patient"] if param not in requests.FILES and param not in requests.POST), None)
+    if missing_param:
+        return custom_response(False, message=error_params_unfilled(missing_param))
 
-    if not Patient.objects.filter(id=requests.POST.get('patient')).first():
+    patient_id = requests.POST.get('patient')
+    if not Patient.objects.filter(id=patient_id).exists():
         return custom_response(False, message=INFORMATION['NotDataTrID'])
 
     try:
-        file = Files(patient_id=requests.POST.get('patient'), file=requests.FILES.get('file'))
-        file.save()
+        file = Files.objects.create(patient_id=patient_id, file=requests.FILES['file'])
         return custom_response(True, data=file_format(file))
-    except:
+    except Exception:
         return custom_response(False, message=MESSAGE['UndefinedError'])
 
 
 def file_change(requests, params):
-    if not Files.objects.filter(id=requests.POST.get('id')).first():
+    file_id = requests.POST.get('id')
+    file = Files.objects.filter(id=file_id).first()
+
+    if not file:
         return custom_response(False, message=INFORMATION['NotDataTrID'])
+
     try:
-        file = Files.objects.filter(id=requests.POST.get('id')).first()
         file.file = requests.FILES.get('file', file.file)
-        file.id = requests.POST.get('id', file.id)
         file.save()
 
         return custom_response(True, file_format(file))
-    except:
+    except Exception:
         return custom_response(False, message=MESSAGE['UndefinedError'])
 
 
