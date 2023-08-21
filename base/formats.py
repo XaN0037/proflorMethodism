@@ -107,6 +107,9 @@ def diagnoz_format_all(data):
         ("diagnoz", data.diagnoz),
         ("date", data.date),
         ("patient", data.patient_id),
+        ("patient_name", data.patient.name),
+        ("patient_fist_name", data.patient.first_name),
+        ("patient_father_name", data.patient.father_name),
 
     ])
 
