@@ -21,7 +21,7 @@ from dashboard.models import Diagnoz, Patient
 
 def diagnoz_view(request, params):
     if 'id' not in request.POST:
-        data = [diagnoz_format_all(x) for x in Diagnoz.objects.all()]
+        data = [diagnoz_format_all(x) for x in Diagnoz.objects.all().order_by('-pk')]
         return custom_response(status=True, data=data) if data else custom_response(status=False,
                                                                                     message=INFORMATION['NotDataTrID'])
     else:

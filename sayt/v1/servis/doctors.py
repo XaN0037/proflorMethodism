@@ -32,7 +32,7 @@ def doctor_view(requests, params):
     lang = requests.POST.get('lang', 'en')
     id_param = requests.POST.get('id')
 
-    doctors = Doctor.objects.all()
+    doctors = Doctor.objects.all().order_by('-pk')
 
     if not id_param:
         data = [doctor_format_all(doctor, lang) for doctor in doctors]

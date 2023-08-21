@@ -8,7 +8,7 @@ from dashboard.models import Patient
 def patient_view(requests, params):
     if not 'id' in requests.POST:
         try:
-            return custom_response(status=True, data=[patient_format_all(x) for x in Patient.objects.all()])
+            return custom_response(status=True, data=[patient_format_all(x) for x in Patient.objects.all().order_by('-pk')])
         except:
             return custom_response(status=False, message=INFORMATION['NotDataTrID'])
     if "id" in requests.POST:

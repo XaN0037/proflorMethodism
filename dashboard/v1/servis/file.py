@@ -8,7 +8,7 @@ from dashboard.models import Files, Patient
 def file_view(requests, params):
     if not 'id' in requests.POST:
         try:
-            return custom_response(status=True, data=[file_format(x) for x in Files.objects.all()])
+            return custom_response(status=True, data=[file_format(x) for x in Files.objects.all().order_by('-pk')])
         except:
             return custom_response(status=False, message=INFORMATION['NotDataTrID'])
     if "id" in requests.POST:
@@ -20,7 +20,6 @@ def file_view(requests, params):
 
 
 def file_add(requests, params):
-    print(requests.POST, requests.FILES)
 
     missing_param = next(
         (param for param in ["file", "patient"] if param not in requests.FILES and param not in requests.POST), None)
