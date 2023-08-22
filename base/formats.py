@@ -61,14 +61,14 @@ def file_format(data):
         ("patient_id", data.patient_id),
     ])
 
-
+ # files = [x.file.url for x in Files.objects.filter(patient_id=data.id)]
 def patient_format_one(data):
     try:
         diagnoz = [diagnoz_format_all(x) for x in Diagnoz.objects.filter(patient_id=data.id)]
     except:
         diagnoz = None
     try:
-        files = [x.file.url for x in Files.objects.filter(patient_id=data.id)]
+        files = [{"id": x.id, "url": x.file.url} for x in Files.objects.filter(patient_id=data.id)]
     except:
         files = None
 
@@ -124,7 +124,6 @@ def retsep_format_one(data, lan='uz'):
     ])
 
 
-
 def retsep_format_all(data, lan='ru'):
     return OrderedDict([
         ("Id", data.id),
@@ -155,8 +154,6 @@ def new_format_all(data, lan='uz'):
     ])
 
 
-
-
 def contact_format_all(data):
     return OrderedDict([
         ("Id", data.id),
@@ -173,6 +170,5 @@ def contact_format_all(data):
         ("odnoklassniki", data.odnoklassniki),
         ("youtube", data.youtube),
         ("locatsiya", data.locatsiya),
-
 
     ])
