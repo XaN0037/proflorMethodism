@@ -27,7 +27,7 @@ def retsep_view(requests, params):
 
     if 'id' not in post_data:
         recipes = [retsep_format_all(x, lang) for x in Retsep.objects.all().order_by('-pk')]
-        return custom_response(status=True, data=recipes) if recipes else custom_response(status=False,
+        return custom_response(status=True, data=recipes) if recipes else custom_response(status=False,data=[],
                                                                                           message=INFORMATION[
                                                                                               'NotDataTrID'])
 

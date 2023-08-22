@@ -127,8 +127,10 @@ def retsep_format_one(data, lan='uz'):
 def retsep_format_all(data, lan='ru'):
     return OrderedDict([
         ("Id", data.id),
-        ("name", eval(f"data.name_{lan}")),
-        ("info", eval(f"data.info_{lan}")),
+        ("name_uz", data.name_uz),
+        ("name_ru", data.name_ru),
+        ("info_uz", data.info_uz),
+        ("info_ru", data.info_ru),
     ])
 
 
