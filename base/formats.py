@@ -68,7 +68,7 @@ def patient_format_one(data):
     except:
         diagnoz = None
     try:
-        files = [{"id": x.id, "url": x.file.url} for x in Files.objects.filter(patient_id=data.id)]
+        files = [{"file_id": x.id, "file_url": x.file.url} for x in Files.objects.filter(patient_id=data.id)]
     except:
         files = None
 
