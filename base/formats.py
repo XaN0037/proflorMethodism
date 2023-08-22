@@ -95,8 +95,8 @@ def diagnoz_format_one(data):
         ("recommendation", data.recommendation),
         ("comment", data.comment),
         ("date", data.date),
-        ("img_one", "" if not data.image_one else data.image_one.url),
-        ("img_two", "" if not data.image_two else data.image_two.url)
+        ("image_one", "" if not data.image_one else data.image_one.url),
+        ("image_two", "" if not data.image_two else data.image_two.url)
 
     ])
 
